@@ -1,8 +1,8 @@
-## XDTS file format
- #### As of 2018/11/29
+## Unofficial extension of the XDTS file format 
+ #### Based on: XDTS file format (As of 2018/11/29)
  Created and published by Celsys, Inc. in cooperation with TOEI ANIMATION Co.,Ltd.
 
- Note that this jsonc (JSON with Comments) file is based on the following document:
+ Note that the original version of this jsonc (JSON with Comments) file is based on the following document:
  - "XDTS File Format (November 29, 2018)"
  https://vd.clipstudio.net/clipcontent/paint/app/ToeiAnimation/XDTSFileFormat_en.pdf
  
@@ -81,6 +81,14 @@
                                                                         "items": {
                                                                             "type": "string"
                                                                         }
+                                                                    },
+                                                                    "options": {
+                                                                        "description": "Optional instruction(*8)",
+                                                                        "type": "array",
+                                                                        "minItems": 1,
+                                                                        "items": {
+                                                                            "type": "string"
+                                                                        }
                                                                     }
                                                                 },
                                                                 "required": ["id", "values"]
@@ -147,6 +155,10 @@
             "description": "XTDS file format version",
             "type": "integer",
             "enum": [5]
+        },
+        "subversion": {
+            "description": "extension version identifier(*9)",
+            "type": "string"
         }
     },
     "required": ["timeTables", "version"]
@@ -186,3 +198,12 @@ camerawork.
 *6 Set as 0 for the bottom layer.
 
 *7 Specify layer names with trackNo's that match numbers counted as 0,1,2, etc
+
+*8 Optional instruction character strings (introduced after extension "p1")
+
+| Character string      | Instruction                                          | Valid field |
+| --------------------- | ---------------------------------------------------- | ----------- |
+|    OPTION_KEYFRAME    |           Keyframes (numbers are circled)            |    Cell     |
+| OPTION_REFERENCEFRAME | Reference frames (numbers are enclosed in triangles) |    Cell     |
+
+*9 Set the string "_p1_" (to indicate the Studio Ponoc extended version 1).
